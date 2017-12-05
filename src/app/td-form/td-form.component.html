@@ -1,0 +1,41 @@
+<h1>Template driven Form</h1>
+<form>
+  <div class="form-group" novalidate>
+    <input type="text" class="form-control" [(ngModel)]="name" name="name" minlength="3" required placeholder="name">
+    <div *ngIf="name.errors && (name.dirty || name.touched)" class="alert alert-danger">
+      <div [hidden]="!name.errors.required"> 
+        Please insert name
+      </div>
+    </div>
+
+    <input type="email" class="form-control" [(ngModel)]="email" name="email" required placeholder="email">
+    <div *ngIf="email.errors && (email.dirty || email.touched)" class="alert alert-danger">
+      <div [hidden]="!email.errors.required"> 
+        Please insert email
+      </div>
+    </div>
+
+    <input type="text" class="form-control" [(ngModel)]="phone" name="phone"  placeholder="phone">
+    <div *ngIf="phone.errors && (phone.dirty || phone.touched)" class="alert alert-danger">
+      <div [hidden]="!phone.errors.required"> 
+        Please insert name
+      </div>
+    </div>
+
+    <input type="password" class="form-control" [(ngModel)]="pass" name="pass"required  placeholder="pass">
+    <div *ngIf="pass.errors && (pass.dirty || pass.touched)" class="alert alert-danger">
+      <div [hidden]="!pass.errors.required"> 
+        Please insert name
+      </div>
+    </div>
+
+    <button class="btn btn-success">Submit</button>
+  </div>
+</form>
+<div>
+  <p>Your name is: {{name}}</p>
+  <p>Your email is: {{email}}</p>
+  <p>Your phone is: {{phone}}</p>
+  <p>Your password is: {{pass}}</p>
+</div>
+
