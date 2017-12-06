@@ -1,41 +1,55 @@
 <h1>Template driven Form</h1>
-<form>
+<form #validateForm="ngForm" (ngSubmit)="onSubmit()">
   <div class="form-group" novalidate>
-    <input type="text" class="form-control" [(ngModel)]="name" name="name" minlength="3" required placeholder="name">
+    <input type="text" class="form-control" [(ngModel)]="model.name" name="name" #name="ngModel" minlength="3" required placeholder="at least 3 charracters">
     <div *ngIf="name.errors && (name.dirty || name.touched)" class="alert alert-danger">
       <div [hidden]="!name.errors.required"> 
         Please insert name
       </div>
+      <div *ngIf="name.errors.minlength">
+          At least 3 characters long.
+        </div>
     </div>
 
-    <input type="email" class="form-control" [(ngModel)]="email" name="email" required placeholder="email">
-    <div *ngIf="email.errors && (email.dirty || email.touched)" class="alert alert-danger">
-      <div [hidden]="!email.errors.required"> 
-        Please insert email
+    <input type="text" class="form-control" [(ngModel)]="model.url" name="url" #url="ngModel" pattern="https?://.+"  required placeholder="url">
+    <div *ngIf="url.errors && (url.dirty || url.touched)" class="alert alert-danger">
+       <div *ngIf="url.length > 9">
+        Please insert real web addres
       </div>
     </div>
 
-    <input type="text" class="form-control" [(ngModel)]="phone" name="phone"  placeholder="phone">
-    <div *ngIf="phone.errors && (phone.dirty || phone.touched)" class="alert alert-danger">
-      <div [hidden]="!phone.errors.required"> 
-        Please insert name
-      </div>
-    </div>
-
-    <input type="password" class="form-control" [(ngModel)]="pass" name="pass"required  placeholder="pass">
-    <div *ngIf="pass.errors && (pass.dirty || pass.touched)" class="alert alert-danger">
-      <div [hidden]="!pass.errors.required"> 
-        Please insert name
-      </div>
-    </div>
-
-    <button class="btn btn-success">Submit</button>
+    <input type="text" class="form-control" [(ngModel)]="model.pass" name="pass" #spy required  placeholder="spy">
+    <p>Spy: {{spy.className}}</p>
+    <table>
+        <tr>
+          <th>State</th>
+          <th>Class if true</th>
+          <th>Class if false</th>
+        </tr>
+        <tr>
+          <td>The control has been visited.</td>
+          <td>ng-touched</td>
+          <td>ng-untouched</td>
+        </tr>
+        <tr>
+          <td>The control's value has changed.</td>
+          <td>ng-dirty</td>
+          <td>ng-pristine</td>
+        </tr>
+        <tr>
+            <td>The control's value is valid.</td>
+            <td>ng-valid</td>
+            <td>ng-invalid</td>
+          </tr>
+      </table>
+      <br/>
+    <button class="btn btn-success" [disabled]="!validateForm.form.valid">Submit</button>    
+    <button class="btn btn-success" (click)="validateForm.reset(); displaySubmit()">Reset Form</button>
+    <p [hidden]="display">{{result}}</p>
   </div>
 </form>
 <div>
-  <p>Your name is: {{name}}</p>
-  <p>Your email is: {{email}}</p>
-  <p>Your phone is: {{phone}}</p>
-  <p>Your password is: {{pass}}</p>
+  
+  
 </div>
 

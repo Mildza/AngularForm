@@ -1,20 +1,33 @@
 import { Component, OnInit } from '@angular/core';
+import {User} from './user.model';
 
 @Component({
   selector: 'td-form',
   templateUrl: './td-form.component.html',
   styleUrls: ['./td-form.component.css']
 })
+
+
+
 export class TdFormComponent implements OnInit {
 
-  name: String =""
-  email: String = ""
-  phone: String = ""
-  pass: String = ""
+  result: String
+  display: boolean = false 
+  
+  model = new User("","","")
+  
 
-  constructor() { }
+  constructor(
+    
+  ) { }
 
   ngOnInit() {
+  }
+  onSubmit(){
+    return this.result = JSON.stringify(this.model)
+  }
+  displaySubmit(){
+    this.display=true
   }
 
 }
